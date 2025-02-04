@@ -4,6 +4,7 @@ import streamlit as st
 from src.pipeline import summarize_text, detect_emotion, search_book, count_words
 
 def app():
+    st.set_page_config(page_title="Assignment", page_icon="📚", layout="centered")
     st.title("Assignment")
     st.markdown("This app analyzes the book passage and provides insights on the same.")
 
