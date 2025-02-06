@@ -9,7 +9,7 @@ from langchain_community.document_loaders import WebBaseLoader
 from langchain_community.utilities import GoogleSerperAPIWrapper
 from langchain.chains.combine_documents import create_stuff_documents_chain
 
-from .prompts import summary_prompt, emotion_prompt
+from .prompts import summary_prompt, emotion_prompt, character_prompt
 
 import warnings
 warnings.filterwarnings("ignore")
@@ -90,3 +90,14 @@ def count_words(text):
     Counts the number of words in the text.
     """
     return len(text.split())
+
+def detect_character(text):
+    llm = ChatOpenAI(model='gpt-4o-mini', api_key=OPENAI_API_KEY)
+    
+    messages = [
+        SystemMessage(content=character_prompt),
+        HumanMessage(content=text)
+    ]
+
+    response = llm.invoke(messages)
+    return response.content
